@@ -6,7 +6,7 @@
     "packageRules": [
       {
         "matchPackageNames": ["lambdajection"],
-        "matchPackagePatterns": ["^Lambdajection\."],
+        "matchPackagePatterns": ["^Lambdajection"],
         "groupName": "lambdajection monorepo"
       }
     ],

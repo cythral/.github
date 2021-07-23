@@ -3,6 +3,13 @@
     "extends": [
       "config:base"
     ],
+    "packageRules": [
+      {
+        "matchPackageNames": ["lambdajection"],
+        "matchPackagePatterns": ["^Lambdajection\."],
+        "groupName": "lambdajection monorepo"
+      }
+    ],
     "dotnet": {
         "enabled": true
     }

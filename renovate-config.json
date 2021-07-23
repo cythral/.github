@@ -13,6 +13,11 @@
         "matchPackageNames": ["Microsoft.CodeAnalysis"],
         "matchPackagePatterns": ["^Microsoft.CodeAnalysis"],
         "groupName": "roslyn monorepo"
+      },
+      {
+        "matchPackageNames": ["OpenIddict"],
+        "matchPackagePatterns": ["^OpenIddict"],
+        "groupName": "openiddict monorepo"
       }
     ],
     "dotnet": {

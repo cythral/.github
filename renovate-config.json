@@ -8,6 +8,11 @@
         "matchPackageNames": ["lambdajection"],
         "matchPackagePatterns": ["^Lambdajection"],
         "groupName": "lambdajection monorepo"
+      },
+      {
+        "matchPackageNames": ["Microsoft.CodeAnalysis"],
+        "matchPackagePatterns": ["^Microsoft.CodeAnalysis"],
+        "groupName": "roslyn monorepo"
       }
     ],
     "dotnet": {

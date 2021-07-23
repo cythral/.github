@@ -1,0 +1,26 @@
+name: Dependency Updates
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Git User
+        run: |
+          git config --global user.name "Brighid"
+          git config --global user.email "52382196+brighid-bot@users.noreply.github.com"
+      
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      - name: Install Renovate
+        run: npm i -g @cythral/renovate
+
+      - name: Run Renovate
+        run: renovate --autodiscover

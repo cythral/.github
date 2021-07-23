@@ -21,4 +21,5 @@ jobs:
         run: renovate --autodiscover --git-author "Brighid <52382196+brighid-bot@users.noreply.github.com>"
         env:
           RENOVATE_TOKEN: ${{ secrets.GH_TOKEN }}
+          RENOVATE: "true"
           LOG_LEVEL: debug

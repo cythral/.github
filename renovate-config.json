@@ -18,6 +18,11 @@
         "matchPackageNames": ["OpenIddict"],
         "matchPackagePatterns": ["^OpenIddict"],
         "groupName": "openiddict monorepo"
+      },
+      {
+        "matchPackageNames": ["Flurl"],
+        "matchPackagePatterns": ["^Flurl"],
+        "groupName": "flurl monorepo"
       }
     ],
     "dotnet": {

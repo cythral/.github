@@ -24,3 +24,5 @@ jobs:
 
       - name: Run Renovate
         run: renovate --autodiscover
+        env:
+          RENOVATE_TOKEN: ${{ secrets.GH_TOKEN }}

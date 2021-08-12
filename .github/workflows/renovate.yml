@@ -18,7 +18,7 @@ jobs:
         run: npm i -g @cythral/renovate
 
       - name: Run Renovate
-        run: renovate --binary-source docker --autodiscover --automerge --git-author "Brighid <52382196+brighid-bot@users.noreply.github.com>"
+        run: renovate --binary-source docker --docker-user root --autodiscover --automerge --git-author "Brighid <52382196+brighid-bot@users.noreply.github.com>"
         env:
           RENOVATE_TOKEN: ${{ secrets.GH_TOKEN }}
           RENOVATE: "true"

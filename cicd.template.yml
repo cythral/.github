@@ -136,4 +136,4 @@ Resources:
   TestRepository:
     Type: TF::GitHub::Repository
     Properties:
-      Name: test-repository
+      Name: cythral/test-repository

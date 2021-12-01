@@ -116,6 +116,15 @@ Resources:
                   - "s3:GetObject"
                   - "s3:ListBucket"
                 Resource: "*"
+
+  TerraformGithubTokenSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: terraform/github
+      SecretString: !Sub |
+        {
+          "token": "${GithubToken}"
+        }
   
   GithubRepositoryTypeActivation:
     Type: AWS::CloudFormation::TypeActivation

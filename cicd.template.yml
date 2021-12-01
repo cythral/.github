@@ -135,7 +135,5 @@ Resources:
 
   TestRepository:
     Type: TF::GitHub::Repository
-    UpdateReplacePolicy: Retain
-    DeletionPolicy: Retain
     Properties:
       Name: test-repository

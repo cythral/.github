@@ -138,4 +138,4 @@ Resources:
     Type: TF::GitHub::Repository
     DependsOn: TerraformGithubTokenSecret
     Properties:
-      Name: 'cfn-custom-resource'
+      Name: 'test-repository'

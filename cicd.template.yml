@@ -36,34 +36,34 @@ Resources:
   ExecutorLambdaServiceRole:
     Type: AWS::IAM::Role
     Properties:
-        AssumeRolePolicyDocument:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      Policies:
+        - PolicyName: CoreFunctionality
+          PolicyDocument:
             Version: '2012-10-17'
             Statement:
               - Effect: Allow
-                Principal:
-                    Service: lambda.amazonaws.com
-                Action: sts:AssumeRole
-        Path: /
-        Policies:
-          - PolicyName: CoreFunctionality
-            PolicyDocument:
-                Version: '2012-10-17'
-                Statement:
-                  - Effect: Allow
-                    Action:
-                      - logs:CreateLogGroup
-                      - logs:CreateLogStream
-                      - logs:PutLogEvents
-                    Resource: "*"
-                  - Effect: Allow
-                    Action: secretsmanager:GetSecretValue
-                    Resource: !Sub "arn:${AWS::Partition}:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:terraform/*"
-                  - Effect: Allow
-                    Action:
-                      - s3:GetObject
-                      - s3:PutObject
-                      - s3:DeleteObject
-                    Resource: !Sub "${StateS3Bucket.Arn}/*"
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: "*"
+              - Effect: Allow
+                Action: secretsmanager:GetSecretValue
+                Resource: !Sub "arn:${AWS::Partition}:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:terraform/*"
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:DeleteObject
+                Resource: !Sub "${StateS3Bucket.Arn}/*"
 
   ExecutorLambdaLogGroup:
     Type: AWS::Logs::LogGroup

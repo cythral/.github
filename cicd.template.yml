@@ -123,7 +123,8 @@ Resources:
       Name: terraform/github
       SecretString: !Sub |
         {
-          "token": "${GithubToken}"
+          "token": "${GithubToken}",
+          "owner": "cythral"
         }
   
   GithubRepositoryTypeActivation:
@@ -135,5 +136,6 @@ Resources:
 
   TestRepository:
     Type: TF::GitHub::Repository
+    DependsOn: TerraformGithubTokenSecret
     Properties:
-      Name: '@cythral/test-repository'
+      Name: 'cfn-custom-resource'

@@ -104,19 +104,18 @@ Resources:
             Principal:
               Service: resources.cloudformation.amazonaws.com
             Action: sts:AssumeRole
-        Path: "/"
-        Policies:
-          - PolicyName: ResourceTypePolicy
-            PolicyDocument:
-              Version: '2012-10-17'
-              Statement:
-                - Effect: Allow
-                  Action:
-                    - "lambda:InvokeFunction"
-                    - "s3:DeleteObject"
-                    - "s3:GetObject"
-                    - "s3:ListBucket"
-                  Resource: "*"
+      Policies:
+        - PolicyName: ResourceTypePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "lambda:InvokeFunction"
+                  - "s3:DeleteObject"
+                  - "s3:GetObject"
+                  - "s3:ListBucket"
+                Resource: "*"
   
   GithubRepositoryTypeActivation:
     Type: AWS::CloudFormation::TypeActivation

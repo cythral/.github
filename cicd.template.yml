@@ -1,0 +1,135 @@
+Description: CICD pipeline for .github
+Parameters:
+  GithubToken:
+    Type: String
+    NoEcho: true
+    Description: OAuth token for the Github organization.  Needs read/write access to repos and repo hooks
+
+  GithubOwner:
+    Type: String
+    Description: Owner of the github repository to track
+
+  GithubRepo:
+    Type: String
+    Description: Name of the github repository to track
+
+  GithubBranch:
+    Type: String
+    Default: ""
+    Description: Name of the github branch to track
+
+  PipelineDefinitionBucket:
+    Type: String
+    Description: Bucket name where the pipeline definition is located
+
+  PipelineDefinitionKey:
+    Type: String
+    Description: Key name where the pipeline definition is located
+
+Resources:
+  StateS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub cfntf-${AWS::Region}-${AWS::AccountId}
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  ExecutorLambdaServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+        AssumeRolePolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Principal:
+                    Service: lambda.amazonaws.com
+                Action: sts:AssumeRole
+        Path: /
+        Policies:
+          - PolicyName: CoreFunctionality
+            PolicyDocument:
+                Version: '2012-10-17'
+                Statement:
+                  - Effect: Allow
+                    Action:
+                      - logs:CreateLogGroup
+                      - logs:CreateLogStream
+                      - logs:PutLogEvents
+                    Resource: "*"
+                  - Effect: Allow
+                    Action: secretsmanager:GetSecretValue
+                    Resource: !Sub "arn:${AWS::Partition}:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:terraform/*"
+                  - Effect: Allow
+                    Action:
+                      - s3:GetObject
+                      - s3:PutObject
+                      - s3:DeleteObject
+                    Resource: !Sub "${StateS3Bucket.Arn}/*"
+
+  ExecutorLambdaLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: "/aws/lambda/cfntf-executor"
+      RetentionInDays: 14
+
+  ExecutorLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+        FunctionName: cfntf-executor
+        Handler: index.handler
+        Role: !GetAtt ExecutorLambdaServiceRole.Arn
+        Environment:
+          Variables:
+            BUCKET: !Ref StateS3Bucket
+        Code:
+          S3Bucket: ianmckay-us-east-1
+          S3Key: cfn-tf-custom-types/app.zip
+        Runtime: python3.8
+        MemorySize: 1024
+        Timeout: 900
+
+  ExecutorLambdaInvokeConfig:
+    Type: AWS::Lambda::EventInvokeConfig
+    Properties:
+      FunctionName: !Ref ExecutorLambdaFunction
+      MaximumRetryAttempts: 1
+      Qualifier: "$LATEST"
+
+  ExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      MaxSessionDuration: 8400
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: resources.cloudformation.amazonaws.com
+            Action: sts:AssumeRole
+        Path: "/"
+        Policies:
+          - PolicyName: ResourceTypePolicy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - "lambda:InvokeFunction"
+                    - "s3:DeleteObject"
+                    - "s3:GetObject"
+                    - "s3:ListBucket"
+                  Resource: "*"
+  
+  GithubRepositoryTypeActivation:
+    Type: AWS::CloudFormation::TypeActivation
+    Properties:
+      AutoUpdate: true
+      ExecutionRoleArn: !GetAtt ExecutionRole.Arn
+      PublicTypeArn: arn:aws:cloudformation:us-east-1::type/resource/e1238fdd31aee1839e14fb3fb2dac9db154dae29/TF-GitHub-Repository

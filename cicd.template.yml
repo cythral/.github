@@ -137,4 +137,4 @@ Resources:
   TestRepository:
     Type: TF::GitHub::Repository
     Properties:
-      Name: cfn-custom-resource
+      Name: test-repository

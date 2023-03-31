@@ -25,6 +25,7 @@
         "groupName": "flurl monorepo"
       }
     ],
+    "gitAuthor": "Brighid <52382196+brighid-bot@users.noreply.github.com>",
     "dotnet": {
         "enabled": true,
         "lockFileMaintenance": {

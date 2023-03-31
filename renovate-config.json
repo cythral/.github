@@ -26,6 +26,9 @@
       }
     ],
     "dotnet": {
-        "enabled": true
+        "enabled": true,
+        "lockFileMaintenance": {
+            "enabled": true
+        }
     }
   }

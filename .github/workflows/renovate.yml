@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0
       
       - name: Install Renovate
-        run: npm i -g @cythral/renovate
+        run: npm i -g renovate
 
       - name: Run Renovate
         run: renovate --binary-source docker --docker-user root --autodiscover --automerge --git-author "Brighid <52382196+brighid-bot@users.noreply.github.com>"

@@ -26,6 +26,9 @@
       }
     ],
     "gitAuthor": "Brighid <52382196+brighid-bot@users.noreply.github.com>",
+    "platformAutomerge": true,
+    "automergeType": "pr",
+    "automerge": true,
     "dotnet": {
         "enabled": true,
         "lockFileMaintenance": {

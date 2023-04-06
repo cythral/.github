@@ -29,6 +29,7 @@
     "platformAutomerge": true,
     "automergeType": "pr",
     "automerge": true,
+    "ignorePaths": [],
     "dotnet": {
         "enabled": true,
         "lockFileMaintenance": {

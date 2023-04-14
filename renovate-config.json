@@ -23,6 +23,11 @@
         "matchPackageNames": ["Flurl"],
         "matchPackagePatterns": ["^Flurl"],
         "groupName": "flurl monorepo"
+      },
+      {
+        "matchDatasources": ["docker"],    
+        "matchPackageNames": ["public.ecr.aws/cythral/brighid/base"],
+        "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(\\.(?<build>\\d+))?$"
       }
     ],
     "gitAuthor": "Brighid <52382196+brighid-bot@users.noreply.github.com>",
@@ -33,10 +38,7 @@
     "docker": {
         "enabled": true,
         "packageRules": [
-            {
-              "matchPackageNames": ["public.ecr.aws/cythral/brighid/base"],
-              "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(\\.(?<build>\\d+))?$"
-            }
+            
         ]
     },
     "dotnet": {

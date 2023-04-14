@@ -26,7 +26,7 @@
       }, 
       {
         "matchDatasources": ["docker"],
-        "matchPackageNames": ["public.ecr.aws\/cythral\/brighid\/base"],
+        "matchPackageNames": ["public.ecr.aws/cythral/brighid/base"],
         "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(\\.(?<build>\\d+))?$"
       }
     ],
@@ -35,6 +35,9 @@
     "automergeType": "pr",
     "automerge": true,
     "ignorePaths": [],
+    "docker": {
+        "enabled": true
+    },
     "dotnet": {
         "enabled": true,
         "lockFileMaintenance": {

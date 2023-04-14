@@ -25,6 +25,7 @@
         "groupName": "flurl monorepo"
       }, 
       {
+        "matchDatasources": ["docker"],
         "matchPackageNames": ["public.ecr.aws\/cythral\/brighid\/base"],
         "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(\\.(?<build>\\d+))?$"
       }

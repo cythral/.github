@@ -34,7 +34,7 @@
     "platformAutomerge": true,
     "automergeType": "pr",
     "automerge": true,
-    "enabled": false,
+    "enabled": true,
     "ignorePaths": [],
     "docker": {
         "enabled": true,
